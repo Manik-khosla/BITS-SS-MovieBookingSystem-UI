@@ -1,0 +1,63 @@
+<nav class="navbar fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="../assets/App Logo.png" height="70px" width="150px" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+      aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation" id="navbar-toggle-btn">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+      aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header"></div>
+      <div class="offcanvas-body" role="navigation">
+        <ul class="nav nav-pills nav-justified d-flex flex-lg-column">
+          <li class="nav-item" *ngIf="!isUserLoggedIn">
+            <a class="nav-link active text-light my-3" aria-current="page" href="home">
+              <span class="bi bi-house">&nbsp;&nbsp;</span>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-item text-light btn btn-outline-danger my-3" *ngIf="isUserLoggedIn">
+          <div>Welcome </div>
+          </li>
+          <li class="nav-item" *ngIf="isUserLoggedIn">
+            <a>
+              <span class="nav-link text-light btn btn-outline-primary my-3" href="dashboard">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown my-3" *ngIf="!isUserLoggedIn">
+            <a class="nav-link text-light dropdown-toggle btn btn-outline-secondary" href="#" id="navbarDropdown"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Book Ticket
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="Movie">Movie</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="Concert">Concert</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="Events">Events</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <li class="dropdown-divider"></li>
+      </div>
+      <div>
+        <ul class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <li class="btn btn-outline-danger btn-lg me-2" *ngIf="!isUserLoggedIn" (click)="Login()">Login</li>
+          <li class="btn btn-outline-secondary btn-lg me-2" *ngIf="!isUserLoggedIn" (click)="SignupNewUser()">Signup</li>
+          <li class="btn btn-outline-danger btn-lg" *ngIf="isUserLoggedIn" >Logout</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<app-home></app-home>
+<router-outlet />

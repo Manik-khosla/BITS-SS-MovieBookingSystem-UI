@@ -1,0 +1,168 @@
+<div style="margin-top:150px">
+  <div class="row">
+    <div class="col-lg-4"></div>
+
+    <div class="col-lg-4"></div>
+
+    <div class="col-lg-4">
+      <button class="btn btn-danger float-start add-theatre-btn" *ngIf="isAdminUser" data-bs-toggle="modal"
+        data-bs-target="#AddTheatreModal">
+        Add Theatre
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="AddTheatreModal" tabindex="-1" aria-labelledby="AddTheatreModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Theatre</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="TheatreName" class="form-label">Name</label>
+          <input type="text" class="form-control" id="theatreName" placeholder="Name" [(ngModel)]="NewTheatre.name">
+        </div>
+        <div class="mb-3">
+          <label for="TheatreLocation" class="form-label">Location</label>
+          <input type="text" class="form-control" id="theatreLocation" placeholder="Location"
+            [(ngModel)]="NewTheatre.location">
+        </div>
+        <div class="mb-3">
+          <label for="TheatreCapacity" class="form-label">Capacity</label>
+          <input type="number" class="form-control" id="theatreLocation" placeholder="Capacity"
+            [(ngModel)]="NewTheatre.capacity">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="AddTheatre(NewTheatre)">Add Theatre</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <table class="table table-sm table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Capacity</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let theatre of theatreList; ">
+        <tr class="table-active">
+          <td> {{theatre.name}} </td>
+          <td>{{theatre.location}}</td>
+          <td> {{theatre.capacity}}</td>
+          <td><button class="btn btn-danger" *ngIf="isAdminUser" data-bs-toggle="modal" data-bs-target="#AddMovieModal"
+              (click)="setTheatreId(theatre._id)">AddMovie</button></td>
+          <td><button class="btn btn-primary" data-bs-toggle="modal"
+              data-bs-target="#ViewMovieModal" (click)="getMoviesList(theatre._id)">View Movies Showcasing</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="AddMovieModal" tabindex="-1" aria-labelledby="AddMovieModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Movie</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="MovieTitle" class="form-label">Movie Title</label>
+          <input type="text" class="form-control" id="MovieTitle" placeholder="title" [(ngModel)]="NewMovie.title">
+        </div>
+        <div class="mb-3">
+          <label for="MovieGenre" class="form-label">Movie Genre</label>
+          <input type="text" class="form-control" id="MovieGenre" placeholder="Genre" [(ngModel)]="NewMovie.genre">
+        </div>
+        <div class="mb-3">
+          <label for="MovieGenre" class="form-label">Movie Description</label>
+          <div class="mb-3" class="form-control" id="MovieDescription" placeholder="Genre">
+            <label for="" class="form-label">Description</label>
+            <textarea class="form-control" name="MovieDescription" id="MovieDescription" rows="3"
+              [(ngModel)]="NewMovie.summary"></textarea>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="MovieReleaseDate" class="form-label">Movie Release Date</label>
+          <input type="date" class="form-control" id="MovieReleaseDate" placeholder="Release Date"
+            [(ngModel)]="NewMovie.releaseDate">
+        </div>
+        <div class="mb-3">
+          <label for="MovieDuration" class="form-label">Movie Duration</label>
+          <input type="time" class="form-control" id="MovieDuration" placeholder="Duration"
+            [(ngModel)]="NewMovie.duration">
+        </div>
+        <div class="mb-3">
+          <label for="MovieImage" class="form-label">Upload Image</label>
+          <input type="file" class="form-control" id="MovieImage" placeholder="image" [(ngModel)]="NewMovie.image">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="AddMovieInTheatre(NewMovie)">Add Movie</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--View Movies-->
+<div class="modal fade" id="ViewMovieModal" tabindex="-1" aria-labelledby="ViewMovieModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Movies Showcasing</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let movie of movieList">
+          <div class="card" style="width: 18rem;margin:5%">
+            <img src="{{movie.image}}" class="card-img-top" alt="{{movie.title}}">
+            <div class="card-body">
+              <h5 class="card-title">{{movie.title}}</h5>
+              <p class="card-text">{{movie.genre}}&nbsp;&nbsp;{{movie.duration}}&nbsp;&nbsp;{{movie.releaseDate}}</p>
+              <br>
+              <p class="card-text">{{movie.summary}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="AddMovieInTheatre(NewMovie)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast align-items-center text-bg-success border-0" id="showSuccessMsg" role="alert" aria-live="assertive"
+  aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      {{SuccessMessage}}
+    </div>
+  </div>
+</div>
+
+<div class="toast align-items-center text-bg-danger border-0" id="showErrorMsg" role="alert" aria-live="assertive"
+  aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      {{ErrorMessage}}
+    </div>
+  </div>
+</div>

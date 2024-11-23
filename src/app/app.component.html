@@ -19,12 +19,7 @@
             </a>
           </li>
           <li class="nav-item text-light btn btn-outline-danger my-3" *ngIf="isUserLoggedIn">
-          <div>Welcome </div>
-          </li>
-          <li class="nav-item" *ngIf="isUserLoggedIn">
-            <a>
-              <span class="nav-link text-light btn btn-outline-primary my-3" href="dashboard">Dashboard</span>
-            </a>
+          <div>Welcome {{name}}</div>
           </li>
           <li class="nav-item dropdown my-3" *ngIf="!isUserLoggedIn">
             <a class="nav-link text-light dropdown-toggle btn btn-outline-secondary" href="#" id="navbarDropdown"
@@ -52,12 +47,11 @@
         <ul class="d-grid gap-2 d-md-flex justify-content-md-end">
           <li class="btn btn-outline-danger btn-lg me-2" *ngIf="!isUserLoggedIn" (click)="Login()">Login</li>
           <li class="btn btn-outline-secondary btn-lg me-2" *ngIf="!isUserLoggedIn" (click)="SignupNewUser()">Signup</li>
-          <li class="btn btn-outline-danger btn-lg" *ngIf="isUserLoggedIn" >Logout</li>
+          <li class="btn btn-outline-danger btn-lg" *ngIf="isUserLoggedIn" (click)="LogoutUser()">Logout</li>
         </ul>
       </div>
     </div>
   </div>
 </nav>
 
-<app-home></app-home>
 <router-outlet />
